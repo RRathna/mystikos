@@ -1,4 +1,5 @@
 test_asynchat
+test_exceptions
 test_interpreters
 test_itertools
 test_poplib
