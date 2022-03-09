@@ -7,6 +7,34 @@ index a58159a277..e92f3f07ef 100644
  # define VFORK_USABLE 1
  #endif
 +# define VFORK_USABLE 1
-
+ 
  #if defined(__sun) && defined(__SVR4)
  /* readdir64 is used to work around Solaris 9 bug 6395699. */
+diff --git a/Objects/object.c b/Objects/object.c
+index ff816cd5b9..d4179eb382 100644
+--- a/Objects/object.c
++++ b/Objects/object.c
+@@ -1513,6 +1513,7 @@ _dir_locals(void)
+ static PyObject *
+ _dir_object(PyObject *obj)
+ {
++    static int cnt = 0;
+     PyObject *result, *sorted;
+     PyObject *dirfunc = _PyObject_LookupSpecial(obj, &PyId___dir__);
+ 
+@@ -1524,6 +1525,7 @@ _dir_object(PyObject *obj)
+     }
+     /* use __dir__ */
+     result = _PyObject_CallNoArg(dirfunc);
++    printf("after __dir__: %d\n", ++cnt);
+     Py_DECREF(dirfunc);
+     if (result == NULL)
+         return NULL;
+@@ -1536,6 +1538,7 @@ _dir_object(PyObject *obj)
+         Py_DECREF(sorted);
+         return NULL;
+     }
++    printf("after __dir__2: %d\n", cnt);
+     return sorted;
+ }
+ 
