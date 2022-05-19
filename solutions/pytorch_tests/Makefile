@@ -111,7 +111,7 @@ and not test_l1_loss_correct \
 and not test_GroupNorm_numeric_cpu"
 run-test-nn: rootfs
 	$(RUN_PYTEST) /workspace/pytorch/test/test_nn.py -k $(EXCLUDE_TESTS) 2>&1 | tee $@.out
-	grep -q -E '1324 passed.*1437 skipped.*41 deselected.*3 xfailed' $@.out
+	grep -q -E '1321 passed.*1437 skipped.*42 deselected.*3 xfailed' $@.out
 
 .PHONY: run-test-nn-8g
 run-test-nn-8g: INCLUDE_TESTS = "test_avg_pool2d_nhwc_cpu_float32 \
